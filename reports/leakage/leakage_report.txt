@@ -1,0 +1,21 @@
+===== 1. LEAKAGE INFLATION BY POOL (10 seeds) =====
+  deepset         rows   662  leaked test rows    3.7  LI = -0.0062 ± 0.0236
+  deepset+lakera  rows  1662  leaked test rows    4.6  LI = +0.0085 ± 0.0149
+  all_non_bnen    rows  5812  leaked test rows  215.1  LI = +0.0030 ± 0.0052
+
+===== 2. LEAKED vs NON-LEAKED, same random split (uncontrolled) =====
+  gap +0.0149 ± 0.0049, paired t=9.56, p=5.207e-06
+
+===== 3. CONTROL: PromptBench rows only (one source, one label) =====
+  gap +0.0000 (no variance; test undefined)
+  -> step 2's gap is compositional, not memorisation.
+
+===== 4. LEARNING CURVE (control, 8 seeds) =====
+  train    99  leaked 1.0000  clean 1.0000  gap +0.0000
+  train   247  leaked 1.0000  clean 1.0000  gap +0.0000
+  train   494  leaked 1.0000  clean 1.0000  gap +0.0000
+  train  1235  leaked 1.0000  clean 1.0000  gap +0.0000
+  train  2470  leaked 1.0000  clean 1.0000  gap +0.0000
+  train  4941  leaked 1.0000  clean 1.0000  gap +0.0000
+
+Conclusion: H4 not supported on this corpus. Re-run on the P set.
