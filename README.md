@@ -23,9 +23,33 @@ sentinelprompt/
 │       ├── SentinelPrompt-BnEn_template.csv   #  15 rows (schema example)
 │       ├── SentinelPrompt-BnEn_draft_v1.csv   # 450 rows
 │       └── SentinelPrompt-BnEn_draft_v2.csv   # 900 rows  <- main dataset
-├── src/
-│   ├── download_hf.py              # D1 + D2: HF download -> raw/ + interim/
-│   └── parse_promptbench.py        # D3: parse adv_prompts .md -> interim/
+│   └── processed/                  # unified data, splits, adversarial sets, features
+├── src/                            # all logic lives here; notebooks import it
+│   ├── download_hf.py              # D1 + D2 download
+│   ├── parse_promptbench.py        # D3 parse
+│   ├── integrate.py                # schema unification + cleaning
+│   ├── dedup_group.py              # MinHash + LSH near-duplicates -> group_id
+│   ├── split.py                    # grouped, leakage-free split
+│   ├── guards.py                   # protocol invariants (asserts)
+│   ├── adversarial.py              # E2 paraphrase + E3 obfuscation sets
+│   ├── eda.py                      # exploratory analysis
+│   ├── features_tfidf.py           # TF-IDF features
+│   ├── baselines.py                # LogReg, Naive Bayes, Linear SVM
+│   ├── train_transformer.py        # DistilBERT, RoBERTa, ProtectAI DeBERTa
+│   ├── evaluate.py                 # one metric/figure implementation for all models
+│   ├── robustness.py               # RDR, ASR, CLD, McNemar, bootstrap CI
+│   └── leakage_ablation.py         # E6
+├── notebooks/                      # executed, with outputs saved
+│   ├── 00_overview.ipynb           # every model side by side
+│   ├── 01_EDA.ipynb
+│   ├── 03_baselines.ipynb
+│   ├── 04_transformers.ipynb
+│   └── 05_robustness_analysis.ipynb
+├── results/
+│   ├── figures/                    # PNG, 300 dpi
+│   └── tables/                     # CSV (predictions/ holds per-row outputs)
+├── models/                         # weights; git-ignored, re-created by the notebooks
+├── annotation/                     # D4 verification kit
 ├── requirements.txt
 └── .gitignore
 ```
@@ -91,10 +115,44 @@ to the shared schema. `src/parse_promptbench.py` expects the PromptBench
 clean prompts, attacked prompts, and their accuracy deltas, and decodes
 `b"..."` byte literals back to text.
 
+## Running the pipeline
+
+From the project root, in this order:
+
+```bash
+python src/integrate.py          # D1-D4 -> data/processed/unified_v1.csv
+python src/dedup_group.py        # near-duplicate groups -> unified_v2_grouped.csv
+python src/split.py              # grouped split -> train/val/test_*.csv
+python src/adversarial.py        # E2 paraphrase + E3 obfuscation test sets
+```
+
+Then run the notebooks: `01_EDA`, `03_baselines`, `04_transformers`,
+`05_robustness_analysis`, and finally `00_overview`. Each one imports its logic from
+`src/`, so a notebook and its script always give the same numbers.
+`04_transformers` downloads three pre-trained checkpoints (~1.5 GB) on first run.
+
+## Test conditions
+
+| ID | Test set | Rows |
+|---|---|---|
+| E1 | Test-Clean (held-out deepset) | 100 |
+| E2 | Test-Paraphrase (back-translation + WordNet, similarity-gated) | 80 |
+| E3 | Test-Obfuscated (7 techniques, 10/20/30% strength) | 1,900 |
+| E4 | Bangla–English code-mix (D4) | 900 |
+| E5 | Lakera, cross-dataset (all injection) | 1,000 |
+| FP | PromptBench, false-positive test (all safe) | 4,150 |
+| E5x | E5 + FP pooled, for ROC/PR-AUC | 5,150 |
+
+Every model is evaluated by `src/evaluate.py` on every condition. If accuracy exceeds
+97%, the evaluation prints a warning and runs a leakage check against the training set.
+
 ## Status
 
-- [x] D1–D3 downloaded and normalised to interim CSVs
+- [x] D1–D3 downloaded and normalised
 - [x] Bn-En benchmark drafted (v2, 900 rows)
+- [x] Integration, near-duplicate grouping, grouped split
+- [x] Adversarial test sets E2 and E3
+- [x] Classical baselines and transformers on E1–E5
+- [x] Robustness metrics (RDR, ASR, CLD) and E6 leakage ablation
 - [ ] Human verification of the Bn-En drafts (`verified_by` is empty)
-- [ ] Merge all sources into a single train/test split
-- [ ] Baseline detectors + robustness evaluation across the three language variants
+- [ ] Attack-type annotation of the D1/D2 injections

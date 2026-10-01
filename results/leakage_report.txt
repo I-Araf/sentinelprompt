@@ -1,10 +1,10 @@
 ===== 1. LEAKAGE INFLATION BY POOL (10 seeds) =====
-  deepset         rows   662  leaked test rows    3.7  LI = -0.0062 ± 0.0236
-  deepset+lakera  rows  1662  leaked test rows    4.6  LI = +0.0085 ± 0.0149
-  all_non_bnen    rows  5812  leaked test rows  215.1  LI = +0.0030 ± 0.0052
+  deepset         rows   662  leaked test rows    3.7  LI = -0.0072 ± 0.0231
+  deepset+lakera  rows  1662  leaked test rows    4.6  LI = +0.0101 ± 0.0164
+  all_non_bnen    rows  5812  leaked test rows  215.1  LI = +0.0030 ± 0.0049
 
 ===== 2. LEAKED vs NON-LEAKED, same random split (uncontrolled) =====
-  gap +0.0149 ± 0.0049, paired t=9.56, p=5.207e-06
+  gap +0.0148 ± 0.0041, paired t=11.40, p=1.188e-06
 
 ===== 3. CONTROL: PromptBench rows only (one source, one label) =====
   gap +0.0000 (no variance; test undefined)

@@ -1,0 +1,6 @@
+shared_groups,exact_text_overlap,near_duplicates_in_train,test_rows,test_is_single_class,model,condition,accuracy,seed
+0,0,0,100,False,roberta,E1_clean,0.99,1337
+0,0,0,100,False,roberta,E1_clean,0.98,2024
+0,0,0,1000,True,protectai_deberta,E5_crossdataset,1.0,
+0,0,0,4150,True,protectai_deberta,FP_promptbench,0.971566265060241,
+0,0,0,5150,False,protectai_deberta,E5x_pooled,0.9770873786407767,

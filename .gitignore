@@ -13,3 +13,6 @@ __pycache__/
 
 # Hugging Face / datasets cache
 .cache/
+
+# Model weights: large, and re-created by running the notebooks
+models/

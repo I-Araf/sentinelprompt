@@ -53,6 +53,18 @@ def leaked_groups(train, test):
     return set(train.group_id) & set(test.group_id)
 
 
+# one file per split, so notebooks and other scripts never re-derive a split
+SPLIT_COLS = ["id", "text", "label", "group_id", "source", "language",
+              "attack_type", "variant_type", "split"]
+
+
+def save_split_files(out):
+    for name, part in out.groupby("split"):
+        part[SPLIT_COLS].to_csv(OUT.parent / f"{name}.csv", index=False,
+                                encoding="utf-8")
+    print("per-split files:", ", ".join(f"{n}.csv" for n in sorted(out.split.unique())))
+
+
 def main():
     df = pd.read_csv(IN)
 
@@ -83,6 +95,7 @@ def main():
 
     out = pd.concat([tr, val, te, held], ignore_index=True)
     out.to_csv(OUT, index=False, encoding="utf-8")
+    save_split_files(out)
 
     print("\n===== S-GROUPED (ours) =====")
     for name, part in [("train", tr), ("val", val), ("test_clean", te)]:

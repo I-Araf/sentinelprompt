@@ -16,7 +16,8 @@ not inflate accuracy, because the duplicates sit in a class the model separates
 perfectly from ~100 examples. Re-run on the paraphrase set (P) once it exists:
 paraphrased *attacks* straddling the split are where memorisation can bite.
 
-Reads data/processed/unified_v2_grouped.csv; writes reports/leakage/.
+Reads data/processed/unified_v2_grouped.csv; writes results/tables/leakage_*.csv
+and results/leakage_report.txt.
 """
 import sys
 import warnings
@@ -35,7 +36,8 @@ from features_tfidf import build_vectorizer  # noqa: E402
 
 warnings.filterwarnings("ignore")
 IN = Path("data/processed/unified_v2_grouped.csv")
-OUT = Path("reports/leakage")
+OUT = Path("results/tables")
+REPORT = Path("results/leakage_report.txt")
 SEEDS = range(10)
 TEST_FRAC = 0.15
 
@@ -123,7 +125,7 @@ def main():
                         "LI_acc_mean": li.mean(), "LI_acc_std": li.std()})
         say(f"  {name:15s} rows {len(pool):5d}  leaked test rows {r.leaked_test_rows.mean():6.1f}"
             f"  LI = {li.mean():+.4f} ± {li.std():.4f}")
-    pd.DataFrame(summary).to_csv(OUT / "li_by_pool.csv", index=False)
+    pd.DataFrame(summary).to_csv(OUT / "leakage_li_by_pool.csv", index=False)
 
     full = pools["all_non_bnen"]
     say("\n===== 2. LEAKED vs NON-LEAKED, same random split (uncontrolled) =====")
@@ -145,11 +147,11 @@ def main():
                           "gap": (r.acc_leaked - r.acc_clean).mean()})
             say(f"  train {curve[-1]['train_n']:5d}  leaked {curve[-1]['acc_leaked']:.4f}"
                 f"  clean {curve[-1]['acc_clean']:.4f}  gap {curve[-1]['gap']:+.4f}")
-    pd.DataFrame(curve).to_csv(OUT / "learning_curve.csv", index=False)
+    pd.DataFrame(curve).to_csv(OUT / "leakage_learning_curve.csv", index=False)
 
     say("\nConclusion: H4 not supported on this corpus. Re-run on the P set.")
-    (OUT / "leakage_report.txt").write_text("\n".join(lines), encoding="utf-8")
-    print(f"\nsaved -> {OUT}/")
+    REPORT.write_text("\n".join(lines), encoding="utf-8")
+    print(f"\nsaved -> {OUT}/leakage_*.csv, {REPORT}")
 
 
 if __name__ == "__main__":
