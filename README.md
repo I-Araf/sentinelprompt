@@ -16,8 +16,8 @@ sentinelprompt/
 │   │   ├── lakera/                 # Lakera/gandalf_ignore_instructions (HF)
 │   │   └── promptbench/            # PromptBench adv_prompts/*.md
 │   ├── interim/                    # normalised CSVs, one per source
-│   │   ├── deepset_prompts.csv     #    690 rows
-│   │   ├── lakera_prompts.csv      #  1,104 rows
+│   │   ├── deepset_prompts.csv     #    662 rows
+│   │   ├── lakera_prompts.csv      #  1,000 rows
 │   │   └── promptbench_prompts.csv # 11,024 rows
 │   └── bnen/                       # the new Bangla–English benchmark
 │       ├── SentinelPrompt-BnEn_template.csv   #  15 rows (schema example)
@@ -34,8 +34,8 @@ sentinelprompt/
 
 | Code | Source | Where | Rows (interim) |
 |------|--------|-------|----------------|
-| D1 | `deepset/prompt-injections` | Hugging Face | 690 |
-| D2 | `Lakera/gandalf_ignore_instructions` | Hugging Face | 1,104 |
+| D1 | `deepset/prompt-injections` | Hugging Face | 662 |
+| D2 | `Lakera/gandalf_ignore_instructions` | Hugging Face | 1,000 |
 | D3 | PromptBench adversarial prompts | `adv_prompts/*.md` | 11,024 |
 | D4 | SentinelPrompt-BnEn (this project) | hand-authored | 900 |
 
