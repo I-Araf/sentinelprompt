@@ -40,6 +40,7 @@ sentinelprompt/
 │   ├── robustness.py               # RDR, ASR, CLD, McNemar, bootstrap CI
 │   ├── adversarial_training.py     # M8: augmented training set
 │   ├── error_analysis.py           # error breakdowns, pairwise McNemar
+│   ├── explain.py                  # SHAP, LIME, attention, shortcut audit
 │   └── leakage_ablation.py         # E6
 ├── notebooks/                      # executed, with outputs saved
 │   ├── 00_overview.ipynb           # every model side by side
@@ -48,7 +49,8 @@ sentinelprompt/
 │   ├── 04_transformers.ipynb
 │   ├── 05_robustness_analysis.ipynb
 │   ├── 06_adversarial_training.ipynb  # M8
-│   └── 07_error_analysis.ipynb
+│   ├── 07_error_analysis.ipynb
+│   └── 08_interpretability.ipynb
 ├── results/
 │   ├── figures/                    # PNG, 300 dpi
 │   └── tables/                     # CSV (predictions/ holds per-row outputs)
@@ -131,7 +133,7 @@ python src/adversarial.py        # E2 paraphrase + E3 obfuscation test sets
 ```
 
 Then run the notebooks: `01_EDA`, `03_baselines`, `04_transformers`,
-`05_robustness_analysis`, `06_adversarial_training`, `07_error_analysis`, and finally `00_overview`. Each one imports its logic from
+`05_robustness_analysis`, `06_adversarial_training`, `07_error_analysis`, `08_interpretability`, and finally `00_overview`. Each one imports its logic from
 `src/`, so a notebook and its script always give the same numbers.
 `04_transformers` downloads three pre-trained checkpoints (~1.5 GB) on first run.
 
@@ -160,6 +162,8 @@ Every model is evaluated by `src/evaluate.py` on every condition. If accuracy ex
 - [x] Robustness metrics (RDR, ASR, CLD) and E6 leakage ablation
 - [x] M8 adversarial training (E8)
 - [x] Error analysis and pairwise significance (Bonferroni, odds ratio)
+- [x] Interpretability (SHAP, LIME, attention) and shortcut audit
+- [ ] Coefficient inspection for Logistic Regression / Naive Bayes (classical track)
 - [ ] Human reading of the error inspection sheet (`results/tables/error_inspection_sheet.csv`)
 - [ ] Human verification of the Bn-En drafts (`verified_by` is empty)
 - [ ] Attack-type annotation of the D1/D2 injections
