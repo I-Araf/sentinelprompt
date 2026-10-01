@@ -1,0 +1,21 @@
+# Source and docs: normalise line endings in the repo, check out native.
+*.py    text
+*.md    text
+*.txt   text
+*.yml   text
+*.yaml  text
+
+# Data files: never convert. A CSV field can legitimately contain CR inside
+# quotes, and autocrlf rewrites it silently -- that is data corruption, not
+# formatting. This cost us 104 CR bytes across 57 rows of `text_raw` once
+# (methodology 3.5.1 keeps text_raw precisely to preserve the pre-normalised
+# form for the obfuscation experiments in 3.7.2).
+*.csv   -text
+*.tsv   -text
+*.json  -text
+
+# Binary
+*.png   binary
+*.jpg   binary
+*.pdf   binary
+*.zip   binary
