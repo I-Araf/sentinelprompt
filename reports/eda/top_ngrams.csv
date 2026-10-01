@@ -1,0 +1,61 @@
+class,ngram,count
+Safe,the,7257
+Safe,or,3499
+Safe,and,2849
+Safe,entailment,2076
+Safe,true,2003
+Safe,is,1963
+Safe,as,1726
+Safe,with,1592
+Safe,if,1523
+Safe,of,1440
+Safe,to,1332
+Safe,answer,1265
+Safe,not_entailment,1205
+Safe,entailment or,1201
+Safe,or not_entailment,1196
+Safe,entailment or not_entailment,1196
+Safe,sentences,1013
+Safe,in,942
+Safe,true is,916
+Safe,is true,916
+Safe,and true,916
+Safe,true is true,916
+Safe,and true is,916
+Safe,given,906
+Safe,for,830
+Safe,following,828
+Safe,the following,823
+Safe,equivalent,816
+Safe,if the,771
+Safe,the given,761
+Injection,the,1230
+Injection,instructions,731
+Injection,you,656
+Injection,ignore,652
+Injection,and,541
+Injection,to,456
+Injection,previous,455
+Injection,your,440
+Injection,all,429
+Injection,password,394
+Injection,the password,296
+Injection,me,295
+Injection,কর,280
+Injection,is,272
+Injection,what,267
+Injection,previous instructions,267
+Injection,ignore all,244
+Injection,are,239
+Injection,in,234
+Injection,of,180
+Injection,this,176
+Injection,instruction,168
+Injection,all previous,165
+Injection,that,159
+Injection,tell,159
+Injection,it,159
+Injection,with,155
+Injection,do,137
+Injection,e0,136
+Injection,now,134

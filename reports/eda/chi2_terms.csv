@@ -1,0 +1,41 @@
+term,chi2,leans
+instructions,2118.5665506447604,Injection
+ignore,1863.8773438736646,Injection
+you,1521.4356443037832,Injection
+previous,1303.50833749582,Injection
+all,1227.6503934132807,Injection
+password,1111.2905690994637,Injection
+or,1085.5697044050637,Safe
+the password,863.808523058961,Injection
+previous instructions,779.1786339754817,Injection
+entailment,711.3798759751951,Safe
+ignore all,707.16157830563,Injection
+true,684.025029700742,Safe
+কর,587.4951269885562,Injection
+the,543.0830935800604,Safe
+all previous,481.5148861646236,Injection
+instruction,475.79177777362713,Injection
+me,462.6120969365688,Injection
+not_entailment,412.91558311662334,Safe
+entailment or,411.54490898179637,Safe
+entailment or not_entailment,409.83156631326267,Safe
+or not_entailment,409.83156631326267,Safe
+e0,396.88499708114426,Injection
+as,396.77662441926884,Safe
+if,389.3977533324172,Safe
+tell,385.1065535675333,Injection
+ignore all previous,382.2936368943374,Injection
+now,376.63924612893317,Injection
+forget,368.66133122993904,Injection
+that,348.35020057197056,Injection
+your,347.4419987554218,Injection
+me the,347.2743724460012,Injection
+any,345.4425755771782,Injection
+what,340.1522337044409,Injection
+ignore the,328.8613492277052,Injection
+a6,326.84646818447175,Injection
+sentences,326.45617084181936,Safe
+e0 a6,321.009924109749,Injection
+is true,313.88437687537515,Safe
+and true,313.88437687537515,Safe
+true is true,313.88437687537515,Safe
