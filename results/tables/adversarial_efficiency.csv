@@ -1,0 +1,2 @@
+model,threshold,val_macro_f1,epochs_run,train_seconds,params_million,size_mb,latency_ms_median,latency_ms_p95
+distilbert_adv,0.6288932799796263,0.9964045590191638,3.3333333333333335,132.36666666666667,67.0,268.5,5.896666666666666,8.290000000000001

@@ -35,7 +35,8 @@ MODELS = Path("models")
 SEEDS = [42, 1337, 2024]
 CONFIG = {"lr": 2e-5, "weight_decay": 0.01, "batch_size": 16, "max_epochs": 5,
           "patience": 2, "warmup_frac": 0.10, "max_length": 128, "grad_clip": 1.0}
-CHECKPOINTS = {"distilbert": "distilbert/distilbert-base-uncased", "roberta": "FacebookAI/roberta-base"}
+CHECKPOINTS = {"distilbert": "distilbert/distilbert-base-uncased", "roberta": "FacebookAI/roberta-base",
+               "distilbert_adv": "distilbert/distilbert-base-uncased"}   # M8, 3.10.9
 EXTERNAL = "protectai/deberta-v3-base-prompt-injection-v2"
 
 
@@ -242,7 +243,7 @@ def run_external(conditions, tr, verbose=True):
     return {"run42": run, "meta": [meta]}
 
 
-def save_all(summary):
+def save_all(summary, prefix="transformers"):
     """Per-seed table, seed-mean table (used by the overview), reports, efficiency."""
     rows, means, reps, checks, metas = [], [], [], [], []
     for name, s in summary.items():
@@ -262,17 +263,17 @@ def save_all(summary):
                                               "accuracy": "accuracy_std"}), on=["model", "condition"])
         mean["note"] = s["run42"]["metrics"]["note"].values if "note" in s["run42"]["metrics"] else np.nan
         means.append(mean)
-    ev.save_table(pd.concat(rows, ignore_index=True), "metrics_transformers")
+    ev.save_table(pd.concat(rows, ignore_index=True), f"metrics_{prefix}")
     summ = pd.concat(means, ignore_index=True)
     out = ev.tidy(summ)
     out["macro_f1_std"], out["accuracy_std"] = summ["macro_f1_std"], summ["accuracy_std"]
     out["seeds"] = [3 if m in CHECKPOINTS else 1 for m in out.model]
-    ev.save_table(out, "metrics_transformers_summary")
-    ev.save_table(pd.concat(reps, ignore_index=True), "classification_reports_transformers")
+    ev.save_table(out, f"metrics_{prefix}_summary")
+    ev.save_table(pd.concat(reps, ignore_index=True), f"classification_reports_{prefix}")
     eff = pd.DataFrame(metas)
-    ev.save_table(eff, "transformers_efficiency_per_seed")
+    ev.save_table(eff, f"{prefix}_efficiency_per_seed")
     ev.save_table(eff.groupby("model", sort=False).mean(numeric_only=True).reset_index()
-                  .drop(columns=["seed"], errors="ignore"), "transformers_efficiency")
+                  .drop(columns=["seed"], errors="ignore"), f"{prefix}_efficiency")
     if checks:
-        ev.save_table(pd.concat(checks, ignore_index=True), "suspicious_accuracy_checks_transformers")
+        ev.save_table(pd.concat(checks, ignore_index=True), f"suspicious_accuracy_checks_{prefix}")
     return out

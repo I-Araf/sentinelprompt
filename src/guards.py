@@ -48,3 +48,21 @@ def assert_originals_only(df, context="train"):
     assert not bad, (
         f"[{context}] non-original variant_type present: {bad}. Paraphrase/"
         f"obfuscation/codemix rows belong to the test conditions only.")
+
+
+def assert_augmentation_from_train_only(augmented, *held_out, names=None):
+    """M8 (methodology 3.10.9): every augmentation variant must come from a
+    training group. A variant of a val/test prompt in training would let the
+    model see a reworded copy of its own exam -- leakage dressed as robustness."""
+    variants = augmented[augmented["variant_type"] != "original"]
+    originals = set(augmented.loc[augmented["variant_type"] == "original", "group_id"])
+    orphan = set(variants["group_id"]) - originals
+    assert not orphan, (
+        f"{len(orphan)} augmentation group(s) have no original in training "
+        f"(e.g. {sorted(orphan)[:3]}). Variants must be derived from training rows.")
+    names = names or [f"held_out{i}" for i in range(len(held_out))]
+    for name, df in zip(names, held_out):
+        shared = set(variants["group_id"]) & set(df["group_id"])
+        assert not shared, (
+            f"{len(shared)} augmentation group(s) also appear in {name} "
+            f"(e.g. {sorted(shared)[:3]}). Augmenting from a test group is leakage.")

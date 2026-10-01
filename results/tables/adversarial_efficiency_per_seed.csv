@@ -1,0 +1,4 @@
+model,seed,threshold,val_macro_f1,epochs_run,train_seconds,params_million,size_mb,latency_ms_median,latency_ms_p95,device
+distilbert_adv,42,0.7879048991203307,1.0,4,157.9,67.0,268.5,6.13,8.55,mps
+distilbert_adv,1337,0.21177820429205882,0.9892136770574911,3,121.3,67.0,268.5,5.75,7.36,mps
+distilbert_adv,2024,0.8869967365264892,1.0,3,117.9,67.0,268.5,5.81,8.96,mps

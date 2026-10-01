@@ -38,13 +38,15 @@ sentinelprompt/
 │   ├── train_transformer.py        # DistilBERT, RoBERTa, ProtectAI DeBERTa
 │   ├── evaluate.py                 # one metric/figure implementation for all models
 │   ├── robustness.py               # RDR, ASR, CLD, McNemar, bootstrap CI
+│   ├── adversarial_training.py     # M8: augmented training set
 │   └── leakage_ablation.py         # E6
 ├── notebooks/                      # executed, with outputs saved
 │   ├── 00_overview.ipynb           # every model side by side
 │   ├── 01_EDA.ipynb
 │   ├── 03_baselines.ipynb
 │   ├── 04_transformers.ipynb
-│   └── 05_robustness_analysis.ipynb
+│   ├── 05_robustness_analysis.ipynb
+│   └── 06_adversarial_training.ipynb  # M8
 ├── results/
 │   ├── figures/                    # PNG, 300 dpi
 │   └── tables/                     # CSV (predictions/ holds per-row outputs)
@@ -127,7 +129,7 @@ python src/adversarial.py        # E2 paraphrase + E3 obfuscation test sets
 ```
 
 Then run the notebooks: `01_EDA`, `03_baselines`, `04_transformers`,
-`05_robustness_analysis`, and finally `00_overview`. Each one imports its logic from
+`05_robustness_analysis`, `06_adversarial_training`, and finally `00_overview`. Each one imports its logic from
 `src/`, so a notebook and its script always give the same numbers.
 `04_transformers` downloads three pre-trained checkpoints (~1.5 GB) on first run.
 
@@ -154,5 +156,6 @@ Every model is evaluated by `src/evaluate.py` on every condition. If accuracy ex
 - [x] Adversarial test sets E2 and E3
 - [x] Classical baselines and transformers on E1–E5
 - [x] Robustness metrics (RDR, ASR, CLD) and E6 leakage ablation
+- [x] M8 adversarial training (E8)
 - [ ] Human verification of the Bn-En drafts (`verified_by` is empty)
 - [ ] Attack-type annotation of the D1/D2 injections

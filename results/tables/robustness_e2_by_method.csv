@@ -1,4 +1,6 @@
 model,method,n,macro_f1,ASR_pct
+distilbert_adv,P1_back_translation,34.0,0.8584478359403477,7.124756335282651
+distilbert_adv,P3_wordnet,46.0,0.9778382518948557,0.0
 distilbert,P1_back_translation,34.0,0.8499881139162269,9.270725834193327
 distilbert,P3_wordnet,46.0,0.9852564102564102,0.0
 linear_svm,P1_back_translation,34.0,0.8131868131868132,10.526315789473683
