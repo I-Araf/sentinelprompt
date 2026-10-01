@@ -1,0 +1,29 @@
+===== logreg =====
+              precision    recall  f1-score   support
+
+        Safe       0.94      0.92      0.93        66
+   Injection       0.86      0.88      0.87        34
+
+    accuracy                           0.91       100
+   macro avg       0.90      0.90      0.90       100
+weighted avg       0.91      0.91      0.91       100
+
+===== multinomial_nb =====
+              precision    recall  f1-score   support
+
+        Safe       0.91      0.94      0.93        66
+   Injection       0.88      0.82      0.85        34
+
+    accuracy                           0.90       100
+   macro avg       0.89      0.88      0.89       100
+weighted avg       0.90      0.90      0.90       100
+
+===== linear_svm =====
+              precision    recall  f1-score   support
+
+        Safe       0.94      0.91      0.92        66
+   Injection       0.83      0.88      0.86        34
+
+    accuracy                           0.90       100
+   macro avg       0.89      0.90      0.89       100
+weighted avg       0.90      0.90      0.90       100
