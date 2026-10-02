@@ -1,0 +1,7 @@
+annotator_a,annotator_b,field,rows_compared,raw_agreement,cohen_kappa
+iham,saidul,ann_label,49,1.0,1.0
+iham,saidul,ann_attack_type,49,0.9183673469387755,0.7885652642934197
+iham,sourav,ann_label,50,0.72,0.3110236220472441
+iham,sourav,ann_attack_type,50,0.66,0.2621527777777779
+saidul,sourav,ann_label,49,0.7346938775510204,0.34397528321318227
+saidul,sourav,ann_attack_type,49,0.6326530612244898,0.2032520325203251
