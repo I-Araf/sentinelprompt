@@ -1,0 +1,181 @@
+model,direction,rank,block,feature,weight
+logreg,towards_injection,1,char, y ,5.228812076957748
+logreg,towards_injection,2,char, a ,5.219580240598365
+logreg,towards_injection,3,word,you,4.084770558749685
+logreg,towards_injection,4,word,fuck,3.477475809690508
+logreg,towards_injection,5,char,?. ,3.362740452947048
+logreg,towards_injection,6,word,before,3.340393179980423
+logreg,towards_injection,7,word,hate trump,3.286101178311025
+logreg,towards_injection,8,word,hate,3.2488786175863407
+logreg,towards_injection,9,word,you are,3.2302582843716894
+logreg,towards_injection,10,char, o ,3.15476456128397
+logreg,towards_injection,11,word,translate,2.9929506178553176
+logreg,towards_injection,12,char,te ,2.8865674450270626
+logreg,towards_injection,13,word,everything,2.83744603496703
+logreg,towards_injection,14,char, e ,2.8344076360429433
+logreg,towards_injection,15,word,forget,2.7567230946245456
+logreg,towards_injection,16,word,generate,2.699227914831188
+logreg,towards_injection,17,word,sie,2.639636570199212
+logreg,towards_injection,18,word,alles,2.552474255267808
+logreg,towards_injection,19,word,who am,2.4876700597107404
+logreg,towards_injection,20,word,du,2.4824900298608252
+logreg,towards_injection,21,char, al,2.4629440517438357
+logreg,towards_injection,22,word,write,2.421751717259947
+logreg,towards_injection,23,char,ate,2.362721409298162
+logreg,towards_injection,24,char, fo,2.35697199105108
+logreg,towards_injection,25,word,that,2.3186721675818975
+logreg,towards_injection,26,char,ate ,2.2833214616274153
+logreg,towards_injection,27,char, yo,2.258075343962827
+logreg,towards_injection,28,word,vergiss,2.2430414931396134
+logreg,towards_injection,29,word,vergiss alles,2.2212319745234996
+logreg,towards_injection,30,word,an,2.191741614201503
+logreg,towards_safe,1,word,can you,-2.898449275823267
+logreg,towards_safe,2,word,germany,-2.687060754182803
+logreg,towards_safe,3,word,deutschland,-2.6136266651291624
+logreg,towards_safe,4,word,europa,-2.399274423217452
+logreg,towards_safe,5,word,hat,-2.377876800447431
+logreg,towards_safe,6,word,my,-2.257928812083743
+logreg,towards_safe,7,word,can,-2.0293916556099623
+logreg,towards_safe,8,word,welche,-1.9739911865162116
+logreg,towards_safe,9,word,who is,-1.6556938567810713
+logreg,towards_safe,10,char,n? ,-1.6261369345119967
+logreg,towards_safe,11,word,wer,-1.6007729360975957
+logreg,towards_safe,12,word,europe,-1.5918190779886756
+logreg,towards_safe,13,word,have,-1.5716817683993478
+logreg,towards_safe,14,word,would like to,-1.5500348037367577
+logreg,towards_safe,15,word,like to,-1.5500348037367577
+logreg,towards_safe,16,word,would like,-1.5348140766056644
+logreg,towards_safe,17,word,ich,-1.5116008904766105
+logreg,towards_safe,18,word,30,-1.4230353598221999
+logreg,towards_safe,19,char,t? ,-1.4066716969396325
+logreg,towards_safe,20,word,israel,-1.4026563480409444
+logreg,towards_safe,21,word,what is,-1.346623344278577
+logreg,towards_safe,22,word,gerne,-1.3356921364729732
+logreg,towards_safe,23,word,corona,-1.3350524327310647
+logreg,towards_safe,24,word,mich,-1.322036324130719
+logreg,towards_safe,25,word,did,-1.2760450034101478
+logreg,towards_safe,26,word,where is,-1.2733089325541336
+logreg,towards_safe,27,word,something,-1.2307295308303587
+logreg,towards_safe,28,word,ukraine,-1.2132569377827762
+logreg,towards_safe,29,word,economic,-1.2002655866767866
+logreg,towards_safe,30,char, ca,-1.180256031073612
+linear_svm,towards_injection,1,char, y ,2.168268948397395
+linear_svm,towards_injection,2,char, a ,1.887055165991234
+linear_svm,towards_injection,3,char, o ,1.3397232200210787
+linear_svm,towards_injection,4,char, e ,1.2397029482333581
+linear_svm,towards_injection,5,char,?. ,1.129596502363232
+linear_svm,towards_injection,6,word,you,0.9691824239626782
+linear_svm,towards_injection,7,word,hate trump,0.9199358464461808
+linear_svm,towards_injection,8,word,hate,0.9003174137847617
+linear_svm,towards_injection,9,word,before,0.8987836155948711
+linear_svm,towards_injection,10,word,fuck,0.8884470248390268
+linear_svm,towards_injection,11,word,you are,0.8323524217342368
+linear_svm,towards_injection,12,word,translate,0.8008393996083489
+linear_svm,towards_injection,13,word,everything,0.792967398618037
+linear_svm,towards_injection,14,word,forget,0.7673970948214707
+linear_svm,towards_injection,15,char,te ,0.7558137016127201
+linear_svm,towards_injection,16,word,generate,0.6827476213209205
+linear_svm,towards_injection,17,word,who am,0.6562571324333424
+linear_svm,towards_injection,18,word,forget everything,0.6562172486985139
+linear_svm,towards_injection,19,word,write,0.6379915074283437
+linear_svm,towards_injection,20,char, fo,0.6217606043622897
+linear_svm,towards_injection,21,char,ate,0.6091990865773987
+linear_svm,towards_injection,22,char,ate ,0.5932829754239782
+linear_svm,towards_injection,23,word,alles,0.5898811301449484
+linear_svm,towards_injection,24,word,speak,0.5898082472677203
+linear_svm,towards_injection,25,word,du,0.5890108469640581
+linear_svm,towards_injection,26,word,the articles,0.5660091613878715
+linear_svm,towards_injection,27,word,sie,0.5557433047434113
+linear_svm,towards_injection,28,word,china,0.5549932456209218
+linear_svm,towards_injection,29,char,hin,0.5542203938709079
+linear_svm,towards_injection,30,word,above,0.5466991782640328
+linear_svm,towards_safe,1,word,can you,-0.7882730568666697
+linear_svm,towards_safe,2,word,can,-0.5311016213940624
+linear_svm,towards_safe,3,word,my,-0.4986304273088357
+linear_svm,towards_safe,4,word,hat,-0.47779531844987777
+linear_svm,towards_safe,5,word,welche,-0.4202864518532289
+linear_svm,towards_safe,6,char,s? ,-0.4168845943147499
+linear_svm,towards_safe,7,word,who is,-0.41005759573710776
+linear_svm,towards_safe,8,word,deutschland,-0.3924771390935348
+linear_svm,towards_safe,9,word,have,-0.3924204719329753
+linear_svm,towards_safe,10,word,wer,-0.3820928322161838
+linear_svm,towards_safe,11,char, ca,-0.36820006463163146
+linear_svm,towards_safe,12,word,germany,-0.36514116957729825
+linear_svm,towards_safe,13,word,would like to,-0.36342276491348685
+linear_svm,towards_safe,14,word,like to,-0.36342276491348685
+linear_svm,towards_safe,15,char,t? ,-0.35989614731207503
+linear_svm,towards_safe,16,word,would like,-0.359887455484545
+linear_svm,towards_safe,17,word,30,-0.3566643209560598
+linear_svm,towards_safe,18,char,ls? ,-0.35567906534056554
+linear_svm,towards_safe,19,word,ich,-0.348756553039186
+linear_svm,towards_safe,20,word,what is,-0.316423366074257
+linear_svm,towards_safe,21,char,n? ,-0.3158059411151366
+linear_svm,towards_safe,22,word,israel,-0.31453220624214384
+linear_svm,towards_safe,23,word,mich,-0.31247573930770667
+linear_svm,towards_safe,24,char, can,-0.31185311077747857
+linear_svm,towards_safe,25,char,can,-0.31185311077747857
+linear_svm,towards_safe,26,word,something,-0.30515507283081944
+linear_svm,towards_safe,27,word,on the,-0.30482372554437986
+linear_svm,towards_safe,28,word,few,-0.3048086185943085
+linear_svm,towards_safe,29,word,europa,-0.3043817124596898
+linear_svm,towards_safe,30,word,gerne,-0.3023143286805379
+naive_bayes,towards_injection,1,word,forget,3.3151376324688773
+naive_bayes,towards_injection,2,word,everything,3.2038264267857066
+naive_bayes,towards_injection,3,word,vergiss,3.0886242416830463
+naive_bayes,towards_injection,4,word,alle,3.057325467837252
+naive_bayes,towards_injection,5,word,ignore,3.0561293746376714
+naive_bayes,towards_injection,6,word,instructions,3.040074738703101
+naive_bayes,towards_injection,7,word,say,3.020046656672738
+naive_bayes,towards_injection,8,word,write,3.0112841282892404
+naive_bayes,towards_injection,9,word,alles,2.981509321851383
+naive_bayes,towards_injection,10,word,hate,2.922225868690889
+naive_bayes,towards_injection,11,word,forget everything,2.913036312514465
+naive_bayes,towards_injection,12,word,vergiss alles,2.8663741233509255
+naive_bayes,towards_injection,13,word,before,2.8630554254835054
+naive_bayes,towards_injection,14,word,above,2.8571132420149405
+naive_bayes,towards_injection,15,word,hate trump,2.84092004389778
+naive_bayes,towards_injection,16,word,generate,2.834743741565335
+naive_bayes,towards_injection,17,char, alle,2.80683287297067
+naive_bayes,towards_injection,18,word,schreibe,2.7569563753198842
+naive_bayes,towards_injection,19,word,aufgabe,2.732329052346703
+naive_bayes,towards_injection,20,char, inst,2.7190807730144986
+naive_bayes,towards_injection,21,char, all,2.717477615926642
+naive_bayes,towards_injection,22,word,fuck,2.7077103811934418
+naive_bayes,towards_injection,23,char,instr,2.7002932245066535
+naive_bayes,towards_injection,24,char,forg,2.696651192953473
+naive_bayes,towards_injection,25,char,forge,2.6671975711415694
+naive_bayes,towards_injection,26,char,orge,2.6671975711415694
+naive_bayes,towards_injection,27,char,orget,2.6671975711415694
+naive_bayes,towards_injection,28,char,nor,2.659563497865115
+naive_bayes,towards_injection,29,word,ignore all,2.6505920219080714
+naive_bayes,towards_injection,30,word,or,2.648004685289296
+naive_bayes,towards_safe,1,word,europe,-3.7155002177884153
+naive_bayes,towards_safe,2,word,hat,-3.6596318327657276
+naive_bayes,towards_safe,3,word,reforms,-3.1582951251789186
+naive_bayes,towards_safe,4,word,digitalisierung,-3.132619016916247
+naive_bayes,towards_safe,5,word,europa,-3.0727376298945526
+naive_bayes,towards_safe,6,word,ukraine,-3.044012647450728
+naive_bayes,towards_safe,7,word,the current,-3.0341299829096133
+naive_bayes,towards_safe,8,word,recycling,-3.013276210164557
+naive_bayes,towards_safe,9,word,gibt es,-2.987797522610281
+naive_bayes,towards_safe,10,word,situation,-2.9831233744927887
+naive_bayes,towards_safe,11,word,in ukraine,-2.950074702351815
+naive_bayes,towards_safe,12,word,where is,-2.94222792059586
+naive_bayes,towards_safe,13,word,lgbtiq,-2.9351713122238383
+naive_bayes,towards_safe,14,word,traffic,-2.9116554237148264
+naive_bayes,towards_safe,15,word,social,-2.9056393496979425
+naive_bayes,towards_safe,16,word,auswirkungen,-2.8383703959563924
+naive_bayes,towards_safe,17,word,how many,-2.787497193339206
+naive_bayes,towards_safe,18,word,many,-2.787497193339206
+naive_bayes,towards_safe,19,word,heute,-2.7745681856544984
+naive_bayes,towards_safe,20,word,trump bad,-2.766179333928692
+naive_bayes,towards_safe,21,word,wann,-2.7322971451519624
+naive_bayes,towards_safe,22,word,was sind,-2.72094165948584
+naive_bayes,towards_safe,23,word,women germany,-2.719883567275053
+naive_bayes,towards_safe,24,word,donald trump,-2.704939525719528
+naive_bayes,towards_safe,25,word,donald,-2.704939525719528
+naive_bayes,towards_safe,26,word,europa usa,-2.7023664154685356
+naive_bayes,towards_safe,27,word,was the,-2.6960160756951908
+naive_bayes,towards_safe,28,word,climate,-2.680247304521922
+naive_bayes,towards_safe,29,word,chancellor,-2.6726112339247408
+naive_bayes,towards_safe,30,char, hat ,-2.672492565385822

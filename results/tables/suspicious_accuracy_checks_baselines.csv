@@ -1,0 +1,2 @@
+shared_groups,exact_text_overlap,near_duplicates_in_train,test_rows,test_is_single_class,model,condition,accuracy
+0,0,0,1000,True,naive_bayes,E5_crossdataset,0.992

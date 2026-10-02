@@ -1,0 +1,4 @@
+model,best_params,cv_macro_f1,val_macro_f1,threshold,tuning_seconds,ms_per_row,size_mb
+logreg,"{'clf__C': 100, 'clf__class_weight': None, 'clf__l1_ratio': 0}",0.9278912407041947,0.9438895746829761,0.706785828873803,3.2,0.0792,0.67
+naive_bayes,{'clf__alpha': 0.1},0.8704859169369881,0.899001234429357,0.8512624828162219,0.3,0.0779,1.03
+linear_svm,{'clf__C': 10},0.9326768757521112,0.9554367201426025,0.28298225076500527,0.3,0.0791,0.67
