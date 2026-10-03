@@ -1,0 +1,7 @@
+verification,rows,label_changed,attack_type_changed
+pilot_majority,49,3,3
+pilot_tie,1,0,0
+sample_agree,124,0,0
+sample_disagree,26,0,0
+unverified,700,0,0
+total,900,3,3
