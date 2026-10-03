@@ -3,12 +3,10 @@
 re-score E4 against it (methodology 3.6.3, 3.7.3).
 
 Human evidence used, and nothing else:
-  - pilot (annotation/pilot/, 50 rows, three annotators): majority label of the
-    annotators who answered; a tie keeps the draft label;
-  - sample (annotation/sample/, 150 rows, two independent annotators): where both
-    give the same label it is verified; where they differ the draft label is kept
-    and the row is marked as disagreeing. The sheet in annotation/sample/excluded
-    is not read.
+  - pilot (annotation/pilot/, 50 rows) and sample (annotation/sample/, 150 rows),
+    three annotators each: the majority label of the annotators who answered,
+    and the majority attack type among those who gave that label; a tie keeps
+    the draft label. `verified_by` names only the annotators in the majority.
 Every other row stays as the LLM draft, unverified.
 
 The v2 draft is read-only. Models are not retrained: D4 is test-only, so E4 is
@@ -49,9 +47,10 @@ def annotator_name(d):
     return d["annotator"].iloc[0].strip()
 
 
-def pilot_votes():
-    """id -> (majority label, majority type, names) for the pilot rows."""
-    sheets = [read_sheet(p) for p in sorted(PILOT.glob("pilot_*.csv"))]
+def majority_votes(folder, pattern):
+    """id -> (majority label, majority type, names) over the sheets in a folder.
+    A tie on the label gives (None, None, '') and the draft label is kept."""
+    sheets = [read_sheet(p) for p in sorted(folder.glob(pattern))]
     out = {}
     for rid in sheets[0]["id"]:
         votes = [(s.set_index("id").loc[rid], annotator_name(s)) for s in sheets]
@@ -68,35 +67,19 @@ def pilot_votes():
     return out
 
 
-def sample_votes():
-    """id -> (label or None if the two disagree, type or None, names)."""
-    sheets = [read_sheet(p) for p in sorted(SAMPLE.glob("sample_*.csv"))]
-    assert len(sheets) == 2, "expected exactly two independent sample sheets"
-    a, b = (s.set_index("id") for s in sheets)
-    names = f"{annotator_name(sheets[0])}; {annotator_name(sheets[1])}"
-    out = {}
-    for rid in a.index:
-        la, lb = a.at[rid, "ann_label"], b.at[rid, "ann_label"]
-        ta, tb = a.at[rid, "ann_attack_type"], b.at[rid, "ann_attack_type"]
-        if la == lb:
-            out[rid] = (la, ta if ta == tb else None, names)
-        else:
-            out[rid] = (None, None, "")
-    return out
-
-
 def build_v3():
     d = pd.read_csv(DRAFT, encoding="utf-8-sig", dtype=str, keep_default_na=False)
     d["label_draft"], d["attack_type_draft"] = d["label"], d["attack_type"]
     d["verification"] = "unverified"
-    pil, sam = pilot_votes(), sample_votes()
+    pil = majority_votes(PILOT, "pilot_*.csv")
+    sam = majority_votes(SAMPLE, "sample_*.csv")
     for i, r in d.iterrows():
         if r["id"] in pil:
             lab, typ, who = pil[r["id"]]
             status = "pilot_majority" if lab else "pilot_tie"
         elif r["id"] in sam:
             lab, typ, who = sam[r["id"]]
-            status = "sample_agree" if lab else "sample_disagree"
+            status = "sample_majority" if lab else "sample_tie"
         else:
             continue
         d.at[i, "verification"] = status
@@ -132,7 +115,7 @@ def summarise(d):
 def rescore(d):
     """E4 metrics per prediction file: draft labels, v3 labels, human-verified rows."""
     lab = d.set_index("id")
-    verified = set(d.id[d.verification.isin(["pilot_majority", "sample_agree"])])
+    verified = set(d.id[d.verification.isin(["pilot_majority", "sample_majority"])])
     rows = []
     for f in sorted(ev.PRED.glob("*.csv")):
         p = pd.read_csv(f, dtype={"id": str})

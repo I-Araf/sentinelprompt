@@ -11,26 +11,31 @@ the guideline clarifications in `../GUIDELINE.md` §5.
 
 ## Sheets
 
-| File | Annotator | Used for agreement |
-|---|---|---|
-| `sample_iham.csv` | Iham Araf (A) | yes |
-| `sample_sourav.csv` | Sourav Biswas (C) | yes |
-| `excluded/sample_saidul.csv` | Md. Saidul Islam Chowdhury (B) | **no** |
+| File | Annotator |
+|---|---|
+| `sample_iham.csv` | Iham Araf (A) |
+| `sample_saidul.csv` | Md. Saidul Islam Chowdhury (B) |
+| `sample_sourav.csv` | Sourav Biswas (C) |
 
 The sheets are stored exactly as received, including empty trailing columns and
 rows left by Excel. Nothing in them has been corrected.
 
-`excluded/sample_saidul.csv` is kept for the record only. It was not completed
-independently of the other two sheets, so it is left out of every agreement figure
-and of the final labels. Annotator B's independent annotation is the pilot
-(`../pilot/pilot_saidul.csv`).
+History of B's sheet: an earlier copy of B's sheet was filled by C without B's
+involvement; it was discarded and is not in the repository. B then filled a blank
+sheet afresh, without help, and that is the file here. B's answers share none of
+C's departures from the guideline, and B's fluency judgements differ from A's on
+12 rows.
 
-## Agreement (A vs C, n = 150)
+## Agreement (n = 150 per pair)
 
-| Field | Raw agreement | Cohen's κ |
+| Pair | Label κ | Attack-type κ |
 |---|---|---|
-| `ann_label` | 0.827 | **0.653** |
-| `ann_attack_type` | 0.487 | 0.317 |
+| A – B | 1.000 | 1.000 |
+| A – C | 0.653 | 0.317 |
+| B – C | 0.653 | 0.317 |
+
+Raw label agreement: A–B 100%, A–C and B–C 82.7%. Same label across the three
+language versions of a prompt: A 50/50, B 50/50, C 37/50.
 
 Reproduce with `python src/annotation_agreement.py annotation/sample sample`
 (tables in `results/tables/annotation_sample_*.csv`).
@@ -38,8 +43,8 @@ Reproduce with `python src/annotation_agreement.py annotation/sample sample`
 ## Caveats to report
 
 - Annotator A had seen the draft labels before this round (pilot comparison and
-  earlier checks), so A was not blind to the draft. A matches the draft on all 150
-  rows.
-- Only two independent annotators, so a single pairwise κ.
-- Attack-type agreement is low; telling the techniques apart is harder than the
-  attack/safe decision.
+  earlier checks), so A was not blind to the draft. A and B both match the draft
+  on all 150 rows.
+- B had been sent C's earlier fill of B's sheet before filling B's own.
+- Attack-type agreement involving C is low; C departs from the guideline on 56
+  of the 75 attack rows.
