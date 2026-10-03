@@ -4,6 +4,7 @@
 Usage, from the project root:
     python src/annotation_agreement.py <folder with filled worksheets> [tag]
     e.g.  python src/annotation_agreement.py annotation/pilot pilot
+          python src/annotation_agreement.py annotation/sample sample
 
 The folder holds one filled CSV per annotator (pilot_<name>.csv or
 worksheet_<name>.csv). Nothing in those files is changed. Two kinds of
@@ -48,6 +49,9 @@ SPELLING = {"akward": "awkward", "awkard": "awkward",
 def load(path):
     d = pd.read_csv(path, encoding="utf-8-sig", dtype=str, keep_default_na=False)
     d.columns = [c.strip() for c in d.columns]
+    # Excel can leave empty trailing columns and rows; they carry no answers
+    d = d[[c for c in d.columns if c and not c.startswith("Unnamed")]]
+    d = d[d["id"].str.strip() != ""]
     fixed = 0
     for c in ANN:
         raw = d[c].str.strip().str.lower()
