@@ -3,8 +3,9 @@
 Prompt injection detection robustness — CSE 4891 Data Mining project.
 
 The project collects existing English prompt-injection datasets and adds a new
-hand-designed **Bangla–English (Bn-En) code-mixed** benchmark, so that detectors
-can be evaluated on low-resource and code-mixed inputs rather than English only.
+**Bangla–English (Bn-En) code-mixed** benchmark, drafted with an LLM and partly
+verified by hand, so that detectors can be evaluated on low-resource and
+code-mixed inputs rather than English only.
 
 ## Project structure
 
@@ -22,7 +23,8 @@ sentinelprompt/
 │   └── bnen/                       # the new Bangla–English benchmark
 │       ├── SentinelPrompt-BnEn_template.csv   #  15 rows (schema example)
 │       ├── SentinelPrompt-BnEn_draft_v1.csv   # 450 rows
-│       └── SentinelPrompt-BnEn_draft_v2.csv   # 900 rows  <- main dataset
+│       ├── SentinelPrompt-BnEn_draft_v2.csv   # 900 rows, LLM draft (read-only)
+│       └── SentinelPrompt-BnEn_v3.csv         # 900 rows, labels after human verification
 │   └── processed/                  # unified data, splits, adversarial sets, features
 ├── src/                            # all logic lives here; notebooks import it
 │   ├── download_hf.py              # D1 + D2 download
@@ -41,7 +43,10 @@ sentinelprompt/
 │   ├── adversarial_training.py     # M8: augmented training set
 │   ├── error_analysis.py           # error breakdowns, pairwise McNemar
 │   ├── explain.py                  # SHAP, LIME, attention, shortcut audit
-│   └── leakage_ablation.py         # E6
+│   ├── explain_classical.py        # LogReg / NB coefficient inspection
+│   ├── leakage_ablation.py         # E6
+│   ├── annotation_agreement.py     # Cohen's kappa between annotators
+│   └── d4_verify.py                # D4 v3 from the human annotation, E4 re-scored
 ├── notebooks/                      # executed, with outputs saved
 │   ├── 00_overview.ipynb           # every model side by side
 │   ├── 01_EDA.ipynb
@@ -56,6 +61,11 @@ sentinelprompt/
 │   └── tables/                     # CSV (predictions/ holds per-row outputs)
 ├── models/                         # weights; git-ignored, re-created by the notebooks
 ├── annotation/                     # D4 verification kit
+│   ├── GUIDELINE.md                # labelling rules (role-play rule in §5)
+│   ├── make_sample.py              # draws the 150-row sample
+│   ├── pilot/                      # 50-row pilot, filled by all three annotators
+│   ├── sample/                     # 150-row sample, filled by all three annotators
+│   └── round1/                     # 600-row worksheets, blank (not used)
 ├── requirements.txt
 └── .gitignore
 ```
@@ -67,7 +77,7 @@ sentinelprompt/
 | D1 | `deepset/prompt-injections` | Hugging Face | 662 |
 | D2 | `Lakera/gandalf_ignore_instructions` | Hugging Face | 1,000 |
 | D3 | PromptBench adversarial prompts | `adv_prompts/*.md` | 11,024 |
-| D4 | SentinelPrompt-BnEn (this project) | hand-authored | 900 |
+| D4 | SentinelPrompt-BnEn (this project) | LLM draft, partly human-verified | 900 |
 
 D1/D2 interim schema: `id, text, label, source, language, orig_split`.
 D3 adds PromptBench metadata (`pb_model`, `pb_shot`, `pb_task`, `pb_attack`,
@@ -93,8 +103,26 @@ Current balance:
 - **subtype** — includes 150 `hard_negative` benign prompts (benign text that
   superficially resembles an attack), and encoding variants
   (`base64`, `hex`, `rot13`, `reverse`, `url`)
-- **author** — all `llm_draft`; `verified_by` is still empty, so human
-  verification is the outstanding step for this draft
+- **author** — all `llm_draft`
+
+## Human verification of D4 (`SentinelPrompt-BnEn_v3.csv`)
+
+The three team members annotated a 50-row pilot and a 150-row stratified sample
+of the draft (`annotation/pilot/`, `annotation/sample/`). Each annotated row takes
+the majority label of the three; a tie keeps the draft label. `verified_by` names
+only the annotators in the majority.
+
+- 199 rows human-verified, 1 tie, 700 rows still unverified draft
+- one prompt (3 language versions) moves from injection to safe under the
+  role-play rule; balance is now 447 injection / 453 safe
+- label kappa on the sample: A–B 1.000, A–C 0.653, B–C 0.653
+  (`results/tables/annotation_sample_agreement.csv`; caveats in
+  `annotation/sample/README.md`)
+
+Models are not retrained: D4 is test-only, so E4 is re-scored from the saved
+predictions (`results/tables/e4_relabel_sensitivity.csv`). Draft and v3 labels
+differ by at most 0.004 macro-F1. `data/processed/test_codemix.csv` and the
+other metric tables keep the draft labels; quote E4 from the v3 rows.
 
 ## Setup
 
@@ -137,6 +165,14 @@ Then run the notebooks: `01_EDA`, `03_baselines`, `04_transformers`,
 `src/`, so a notebook and its script always give the same numbers.
 `04_transformers` downloads three pre-trained checkpoints (~1.5 GB) on first run.
 
+After the notebooks have written the prediction files:
+
+```bash
+python src/annotation_agreement.py annotation/pilot pilot    # pilot kappa
+python src/annotation_agreement.py annotation/sample sample  # sample kappa
+python src/d4_verify.py          # D4 v3 + E4 re-scored with the verified labels
+```
+
 ## Test conditions
 
 | ID | Test set | Rows |
@@ -163,7 +199,7 @@ Every model is evaluated by `src/evaluate.py` on every condition. If accuracy ex
 - [x] M8 adversarial training (E8)
 - [x] Error analysis and pairwise significance (Bonferroni, odds ratio)
 - [x] Interpretability (SHAP, LIME, attention) and shortcut audit
-- [ ] Coefficient inspection for Logistic Regression / Naive Bayes (classical track)
+- [x] Coefficient inspection for Logistic Regression / Naive Bayes (classical track)
 - [ ] Human reading of the error inspection sheet (`results/tables/error_inspection_sheet.csv`)
-- [ ] Human verification of the Bn-En drafts (`verified_by` is empty)
+- [x] Human verification of a 200-row sample of the Bn-En draft (v3; 700 rows unverified)
 - [ ] Attack-type annotation of the D1/D2 injections
