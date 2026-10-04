@@ -1,84 +1,91 @@
 # Annotation round — how to run it
 
-ভাগাভাগি, ফাইল, আর কাজের ক্রম। নিয়ম ও সংজ্ঞার জন্য → [GUIDELINE.md](GUIDELINE.md)
+Who checks what, the files, and the order of work. For the rules and definitions →
+[GUIDELINE.md](GUIDELINE.md)
 
-## ফাইল
+> **What was actually done:** the pilot (step 1) and a 150-row sample filled by all
+> three annotators. The 600-row round-1 worksheets were not used and are blank. The
+> results and their caveats are in [sample/README.md](sample/README.md).
+
+## Files
 
 ```
 annotation/
-├── GUIDELINE.md              ← আগে এটা পড়ুন
-├── README.md                 ← এই ফাইল
-├── pilot/                    ← ধাপ ১: ৫০ সারি, তিনজনেই একই সারি
+├── GUIDELINE.md              ← read this first
+├── README.md                 ← this file
+├── pilot/                    ← step 1: 50 rows, the same rows for all three
 │   ├── pilot_sourav.csv
 │   ├── pilot_saidul.csv
 │   └── pilot_iham.csv
-└── round1/                   ← ধাপ ৩: ৬০০ সারি করে
+└── round1/                   ← step 3: 600 rows each
     ├── worksheet_sourav.csv
     ├── worksheet_saidul.csv
     └── worksheet_iham.csv
 ```
 
-## ভাগাভাগির নকশা
+## Design of the allocation
 
-৩০০টা group-কে ৩ ভাগে ভাগ করা হয়েছে, প্রতি ভাগ **দুজন আলাদা করে** দেখবেন:
+The 300 groups are divided into 3 blocks, and each block is checked by **two people
+separately**:
 
-| Block | Groups | কারা দেখবেন |
+| Block | Groups | Checked by |
 |---|---|---|
-| ১ | ১০০টা group (৩০০ সারি) | Sourav + Saidul |
-| ২ | ১০০টা group (৩০০ সারি) | Saidul + Iham |
-| ৩ | ১০০টা group (৩০০ সারি) | Iham + Sourav |
+| 1 | 100 groups (300 rows) | Sourav + Saidul |
+| 2 | 100 groups (300 rows) | Saidul + Iham |
+| 3 | 100 groups (300 rows) | Iham + Sourav |
 
-ফল: প্রত্যেকের ভাগে **৬০০ সারি**, প্রতিটি সারি **ঠিক ২ বার** যাচাই হয়,
-মোট **১,৮০০** judgement। তিনটে ভিন্ন জোড়া হওয়ায় **তিনটে আলাদা κ** পাওয়া
-যাবে — একজনের অভ্যাস পুরো ফলাফলকে টেনে নিতে পারবে না।
+Result: each person has **600 rows**, every row is checked **exactly twice**, for
+**1,800** judgements in total. With three different pairs there are **three separate
+κ values**, so one person's habits cannot pull the whole result.
 
-একটা group-এর তিনটে ভাষারূপ একই block-এ রাখা হয়েছে (যাতে কভারেজ সুষম থাকে),
-কিন্তু worksheet-এর ভেতরে সারি **এলোমেলো** করা, যাতে পাশাপাশি না পড়ে।
+The three language versions of a group are kept in the same block (so that coverage
+stays balanced), but inside a worksheet the rows are **shuffled**, so that they do
+not fall next to each other.
 
-## কাজের ক্রম (methodology §3.6.3)
+## Order of work (methodology §3.6.3)
 
-**ধাপ ১ — Pilot (৫০ সারি, একসাথে শুরু)**
-তিনজনেই `pilot/` ফাইলের **একই ৫০ সারি** স্বাধীনভাবে ভরবেন। উদ্দেশ্য পুরো ডেটা
-করা নয় — **guideline-এ ফাঁক আছে কি না** বের করা।
+**Step 1 — Pilot (50 rows, started together)**
+All three fill **the same 50 rows** of the `pilot/` files independently. The aim is
+not to do all the data but to find out **whether the guideline has gaps**.
 
-**ধাপ ২ — মিলিয়ে দেখা ও guideline ঠিক করা**
-তিনটে pilot ফাইল পাশাপাশি রেখে অমিলগুলো আলোচনা করুন। যেখানে বারবার অমিল,
-সেখানেই guideline অস্পষ্ট → GUIDELINE.md-এ উদাহরণ যোগ করে স্পষ্ট করুন।
-**এই আলোচনাটা শুধু pilot-এ হবে, round1-এ নয়।**
+**Step 2 — Compare and fix the guideline**
+Put the three pilot files side by side and discuss the disagreements. Where
+disagreement repeats, the guideline is unclear → add an example to GUIDELINE.md to
+make it clear. **This discussion happens only for the pilot, not for round 1.**
 
-**ধাপ ৩ — Round 1 (৬০০ সারি করে)**
-সংশোধিত guideline নিয়ে `round1/` ফাইল ভরুন। এবার **কোনো আলোচনা নয়**।
+**Step 3 — Round 1 (600 rows each)**
+Fill the `round1/` files with the revised guideline. This time **no discussion**.
 
-**ধাপ ৪ — κ হিসাব ও অমিল নিষ্পত্তি**
-প্রতি জোড়ার κ বের করা হবে (`ann_label`-এর জন্য একটা, `ann_attack_type`-এর
-জন্য আরেকটা)। যেসব সারিতে দুজন একমত নন, সেখানে **তৃতীয় সদস্য** চূড়ান্ত
-সিদ্ধান্ত দেবেন।
+**Step 4 — Compute κ and settle disagreements**
+κ is computed for each pair (one for `ann_label`, another for `ann_attack_type`).
+For rows where the two do not agree, **the third member** gives the final decision.
 
-**ধাপ ৫ — চূড়ান্ত ফাইল**
-দুজনের মিল + adjudicator-এর রায় মিলিয়ে `SentinelPrompt-BnEn_v3_verified.csv`
-তৈরি হবে, যেখানে `author` ও `verified_by` দুটোই পূরণ থাকবে।
+**Step 5 — Final file**
+The agreed answers plus the adjudicator's decisions are combined into
+`SentinelPrompt-BnEn_v3_verified.csv`, in which both `author` and `verified_by` are
+filled.
 
-> মূল `data/bnen/` ফাইলগুলো **কখনো বদলানো হবে না** — v3 আলাদা ফাইল হিসেবে
-> যোগ হবে, যাতে খসড়া থেকে চূড়ান্ত পর্যন্ত পুরো পথটা ধরা থাকে।
+> The original `data/bnen/` files are **never changed**. v3 is added as a separate
+> file, so that the whole path from draft to final is kept.
 
-## ফাইল ভরার নিয়ম
+## Rules for filling the files
 
-- Excel / Google Sheets / LibreOffice — যেকোনোটা চলবে। ফাইল **UTF-8 (BOM সহ)**
-  করে সেভ করা, তাই বাংলা ঠিকঠাক দেখাবে।
-- শুধু `ann_` দিয়ে শুরু হওয়া কলামগুলো ভরবেন। **বাকি কলাম ছোঁবেন না** —
-  `id` বা `row_no` বদলে গেলে পরে মেলানো যাবে না।
-- **CSV হিসেবেই সেভ করুন** (`.xlsx` নয়)।
-- কাজ শেষে ফাইলের নাম একই রাখুন।
+- Excel / Google Sheets / LibreOffice — any of them works. The files are saved as
+  **UTF-8 (with BOM)**, so the non-English text displays correctly.
+- Fill only the columns that start with `ann_`. **Do not touch the other columns** —
+  if `id` or `row_no` changes, the rows cannot be matched later.
+- **Save as CSV** (not `.xlsx`).
+- Keep the same file name when you finish.
 
-## κ কীভাবে ব্যাখ্যা করবেন (§3.6.3)
+## How to interpret κ (§3.6.3)
 
-| κ | অর্থ |
+| κ | Meaning |
 |---|---|
-| < 0.20 | দুর্বল |
-| 0.21–0.40 | মোটামুটি (fair) |
-| 0.41–0.60 | মাঝারি (moderate) |
-| **0.61–0.80** | **যথেষ্ট ভালো (substantial) ← আমাদের লক্ষ্য** |
-| > 0.80 | প্রায় নিখুঁত |
+| < 0.20 | slight |
+| 0.21–0.40 | fair |
+| 0.41–0.60 | moderate |
+| **0.61–0.80** | **substantial ← our target** |
+| > 0.80 | almost perfect |
 
-κ কম এলে সেটা ব্যর্থতা নয় — মানে guideline আরো স্পষ্ট করা দরকার, বা
-category-গুলো সত্যিই একটার সাথে আরেকটা মিশে আছে। সেটাও paper-এ লেখার মতো findings।
+A low κ is not a failure. It means the guideline needs to be clearer, or the
+categories really do overlap. That is also a finding worth writing in the paper.
